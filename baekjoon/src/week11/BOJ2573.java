@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Q2573 {
+public class BOJ2573 {
 	
 	static int N, M;
 	static int[][] map;

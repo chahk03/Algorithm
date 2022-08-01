@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class baekjoon_Q17478 {
+public class BOJ17478 {
 	
 	static int N;
 	static StringBuilder sb;
