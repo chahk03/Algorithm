@@ -9,8 +9,8 @@ public class Q2615 {
 
 	static int[][] map;
 	static boolean[][] visit;
-	static int[] dx = {0, 1, 1}; // 8방향
-	static int[] dy = {1, 1, 0}; // 8방향
+	static int[] dx = {0, 1, 1, 1}; // 8방향
+	static int[] dy = {1, 1, 0, -1}; // 8방향
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); // 입력문
@@ -47,7 +47,11 @@ public class Q2615 {
 			// 6알이 놓일 위치가 없는 경우, 6알이 같은 색의 알이 아닌 경우
 			if(x + dx[d] < 0 || x + dx[d] >= 19 || y + dy[d] < 0 || y + dy[d] >= 19 || map[x + dx[d]][y + dy[d]] != c) {
 				System.out.println(c); // 색상 출력
-				System.out.println((x + 1 - 4 * dx[d]) + " " + (y + 1 - 4 * dy[d])); // 가장 왼쪽, 위쪽 위치 출력
+				if(d == 3) {
+					System.out.println((x + 1) + " " + (y + 1)); // 가장 왼쪽, 위쪽 위치 출력
+				} else {
+					System.out.println((x + 1 - 4 * dx[d]) + " " + (y + 1 - 4 * dy[d])); // 가장 왼쪽, 위쪽 위치 출력
+				}
 				System.exit(0); // 프로그램 종료
 			} else if(map[x + dx[d]][y + dy[d]] == c) { // 6알 위치에 같은 색의 알이 놓인 경우
 				return; // 이긴 경우가 아니므로 리턴
@@ -64,9 +68,6 @@ public class Q2615 {
 			return;
 		}
 		
-		// 검사하지 않은 오목판 위치인 경우
-		
 		check(x + dx[d], y + dy[d], n + 1, d, c); // 재귀 함수 호출로 다음 위치 알 확인
-		
 	}
 }
