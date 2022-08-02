@@ -1,4 +1,4 @@
-package daily0802;
+package day0802;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +10,7 @@ public class SWEA2805 {
 		int T = Integer.parseInt(br.readLine());
 		
 		for(int t = 1; t <= T; t++) {
-			int N = Integer.parseInt(br.readLine()); // ³óÀå Å©±â
+			int N = Integer.parseInt(br.readLine()); // ë†ìž¥ í¬ê¸°
 			int[][] map = new int[N][N];
 			
 			for(int i = 0; i < N; i++) {
@@ -22,12 +22,12 @@ public class SWEA2805 {
 			
 			int result = 0;
 //			for(int i = 0; i <= N / 2; i++) {
-//				// À­ºÎºÐ
+//				// ìœ—ë¶€ë¶„
 //				for(int j = N / 2 - i; j <= N / 2 + i; j++) {
 //					result += map[i][j];
 //				}
 //				
-//				// ¾Æ·§ºÎºÐ
+//				// ì•„ëž«ë¶€ë¶„
 //				for(int j = N / 2 - i; j <= N / 2 + i; j++) {
 //					if(i == N / 2) break;
 //					result += map[N - i - 1][j];

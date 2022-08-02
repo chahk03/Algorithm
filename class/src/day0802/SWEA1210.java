@@ -1,4 +1,4 @@
-package daily0802;
+package day0802;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,10 +14,10 @@ public class SWEA1210 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 		for(int t = 1; t <= 10; t++) {
-			int T = Integer.parseInt(br.readLine()); // Å×ÄÉ ¹øÈ£
+			int T = Integer.parseInt(br.readLine()); // í…Œì¼€ ë²ˆí˜¸
 			map = new int[100][100];
 			
-			int end = 0; // 2ÀÎ µµÂø ÁöÁ¡
+			int end = 0; // 2ì¸ ë„ì°© ì§€ì 
 			for(int i = 0; i < 100; i++) {
 				StringTokenizer st = new StringTokenizer(br.readLine());
 				for(int j = 0; j < 100; j++) {
@@ -34,8 +34,8 @@ public class SWEA1210 {
 	}
 	
 	static int up(int x) {
-		int floor = 99; // Ãþ
-		visit = new boolean[100][100]; // ¹æ¹® ¹è¿­
+		int floor = 99; // ì¸µ
+		visit = new boolean[100][100]; // ë°©ë¬¸ ë°°ì—´
 		
 		while(true) {
 			visit[floor][x] = true;

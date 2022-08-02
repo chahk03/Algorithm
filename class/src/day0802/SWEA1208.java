@@ -1,4 +1,4 @@
-package daily0802;
+package day0802;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,21 +12,21 @@ public class SWEA1208 {
 		int[] arr = new int[100];
 		
 		for(int t = 1; t <= 10; t++) {
-			int n = Integer.parseInt(br.readLine()); // ´ýÇÁ È½¼ö
-			
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			for(int i = 0; i < 100; i++) {
-				arr[i] = Integer.parseInt(st.nextToken()); // »óÀÚ ¹è¿­
-			}
-			
-			for(int i = 0; i < n; i++) {
-				Arrays.sort(arr);
-				arr[0] += 1;
-				arr[99] -= 1;
-			}
-			
-			Arrays.sort(arr);
-			System.out.println("#" + t + " " + (arr[99] - arr[0]));
-		}
+            int n = Integer.parseInt(br.readLine()); // ë¤í”„ íšŸìˆ˜
+             
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for(int i = 0; i < 100; i++) {
+                arr[i] = Integer.parseInt(st.nextToken()); // ìƒìž ë°°ì—´
+            }
+             
+            for(int i = 0; i < n; i++) {
+                Arrays.sort(arr);
+                arr[0] += 1;
+                arr[99] -= 1;
+            }
+             
+            Arrays.sort(arr);
+            System.out.println("#" + t + " " + (arr[99] - arr[0]));
+        }
 	}
 }

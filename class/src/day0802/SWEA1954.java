@@ -1,10 +1,14 @@
-package daily0802;
+package day0802;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class SWEA1954 {
+	
+	static int[] dx = {0, 1, 0, -1};
+	static int[] dy = {1, 0, -1, 0};
+	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
@@ -14,32 +18,26 @@ public class SWEA1954 {
 			int N = Integer.parseInt(br.readLine());
 			
 			int[][] map = new int[N][N];
+			boolean[][] visit = new boolean[N][N];
 			
-			int value = 0;
-			int cnt = 1;
+			int value = 0, dir = 0;
 			int x = 0, y = 0;
 			
 			while(true) {
-				for(int j = y; j < N - cnt; j++) {
-					map[x][y++] = ++value;
-				}
+				map[x][y] = ++value;
+				visit[x][y] = true;
 				
 				if(value == N * N) break;
 				
-				for(int i = x; i < N - cnt; i++) {
-					map[x++][y] = ++value;
+				int nx = x + dx[dir];
+				int ny = y + dy[dir];
+				
+				if(nx < 0 || nx >= N || ny < 0 || ny >= N || visit[nx][ny]) {
+					dir = (dir + 1) % 4;
 				}
 				
-				for(int j = y; j >= cnt; j--) {
-					map[x][y--] = ++value;
-				}
-				
-				for(int i = x; i >= cnt; i--) {
-					map[x--][y] = ++value;
-				}
-				
-				x += 1; y += 1;
-				cnt++;
+				x = x + dx[dir];
+				y = y + dy[dir];
 			}
 			
 			sb.append("#" + t).append('\n');
@@ -53,4 +51,5 @@ public class SWEA1954 {
 		
 		System.out.println(sb);
 	}
+	
 }
