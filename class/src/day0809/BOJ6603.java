@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class BOJ6603 {
+public class BOJ6603 { // 로또
 	static int K;
 	static int[] arr, numArr;
 	static StringBuilder sb;
 	
-	public static void main(String[] args) throws IOException { // 로또
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 		while(true) {
@@ -21,6 +21,7 @@ public class BOJ6603 {
 			if(K == 0) break;
 			
 			arr = new int[K];
+			numArr = new int[6];
 			for(int i = 0; i < K; i++) {
 				arr[i] = Integer.parseInt(st.nextToken());
 			}
@@ -28,7 +29,6 @@ public class BOJ6603 {
 			select(0, 0);
 			System.out.println(sb);
 		}
-		
 	}
 	
 	static void select(int cnt, int start) {
