@@ -7,10 +7,9 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class BOJ2178 {
+public class BOJ2178 { // 미로 탐색
 	static int N, M;
 	static int[][] map;
-	static int[][] visit;
 	static int[] dx = {0, 1, 0, -1};
 	static int[] dy = {1, 0, -1, 0};
 	
@@ -20,7 +19,6 @@ public class BOJ2178 {
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
 		map = new int[N][M];
-		visit = new int[N][M];
 		
 		for(int i = 0; i < N; i++) {
 			String str = br.readLine();
@@ -35,7 +33,7 @@ public class BOJ2178 {
 	static int bfs() {
 		Queue<int[]> que = new ArrayDeque<>();
 		que.add(new int[] {0, 0});
-		visit[0][0] = 1;
+		map[0][0] = 2;
 		
 		while(!que.isEmpty()) {
 			int[] node = que.poll();
@@ -43,7 +41,7 @@ public class BOJ2178 {
 			int ny = node[1];
 			
 			if(nx == N - 1 && ny == M - 1) {
-				return visit[nx][ny];
+				return map[nx][ny] - 1;
 			}
 			
 			for(int d = 0; d < 4; d++) {
@@ -51,9 +49,9 @@ public class BOJ2178 {
 				int newY = ny + dy[d];
 				
 				if(0 <= newX && newX < N && 0 <= newY && newY < M) {
-					if(map[newX][newY] == 1 && visit[newX][newY] == 0) {
+					if(map[newX][newY] == 1) {
 						que.add(new int[] {newX, newY});
-						visit[newX][newY] = visit[nx][ny] + 1;
+						map[newX][newY] = map[nx][ny] + 1;
 					}
 				}
 			}
