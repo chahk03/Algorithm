@@ -31,15 +31,12 @@ public class BOJ3109 { // 빵집
 		for(int i = 0; i < R; i++) {
 			connect = false;
 			pipe(i, 0);
+			
 			if(connect) result += 1;
 		}
 		
 		System.out.println(result);
 	}
-	
-	// 첫열에서 하나씩 출발해서 끝열에 도착한다면 true
-	// true면 map 상태 그대로 두기
-	// false면 map 원래 상태로 돌리기
 	
 	static void pipe(int x, int y) {
 		if(y == C - 1) {
@@ -59,15 +56,4 @@ public class BOJ3109 { // 빵집
 			}
 		}
 	}
-	
-	static char[][] copy(char[][] map) {
-		char[][] copy = new char[R][C];
-		for(int i = 0; i < R; i++) {
-			for(int j = 0; j < C; j++) {
-				copy[i][j] = map[i][j];
-			}
-		}
-		
-		return copy;
-	} 
 }
