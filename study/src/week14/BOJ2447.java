@@ -5,42 +5,55 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class BOJ2447 { // 별 찍기-10
-	static String star = "*";
-	static String result = "";
 	static int N;
+	static char[][] star;
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		N = Integer.parseInt(br.readLine());
+		StringBuilder sb = new StringBuilder();
 		
-		star(3, star);
+		N = Integer.parseInt(br.readLine()); // 패턴 크기
+		star = new char[N][N]; // 결과 배열
+		
+		makeStar(0, 0, N, false);
+		
 		for(int i = 0; i < N; i++) {
-			
+			for(int j = 0; j < N; j++) {
+				sb.append(star[i][j]);
+			}
+			sb.append('\n');
 		}
-		System.out.println(result);
+		
+		System.out.println(sb);
 	}
 	
-	static void star(int n, String star) {
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 3; j++) {
-				if(i % 3 == 1 && j % 3 == 1) {
-					result += " ";
-				} else {
-					result += star;
+	static void makeStar(int x, int y, int n, boolean blank) {
+		if(blank == true) { // 공백 출력
+			for(int i = x; i < x + n; i++) {
+				for(int j = y; j < y + n; j++) {
+					star[i][j] = ' ';
 				}
 			}
-			
-//			if(result.length() == n * (i + 1) + i) {
-//				result += "\n";
-//			}
-			
-			
-		}
-		
-		if(n == N) {
 			return;
 		}
 		
-		star(n * 3, result);
+		if(n == 1) { // 별 출력
+			star[x][y] = '*';
+			return;
+		}
+		
+		int count = 0;
+		int size = n / 3;
+		
+		for(int i = x; i < x + n; i += size) {
+			for(int j = y; j < y + n; j += size) {
+				count++;
+				if(count == 5) { // 5번째는 공백
+					makeStar(i, j, size, true);
+				} else {
+					makeStar(i, j, size, false);
+				}
+			}
+		}
 	}
 }
