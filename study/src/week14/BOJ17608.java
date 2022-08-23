@@ -16,6 +16,7 @@ public class BOJ17608 { // 막대기
 		
 		int result = 1;
 		int max = arr[N - 1];
+		
 		for(int i = N - 2; i >= 0; i--) { // 오른쪽부터 탐색
 			if(arr[i] > max) {
 				max = arr[i];

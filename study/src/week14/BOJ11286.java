@@ -20,7 +20,7 @@ public class BOJ11286 { // 절대값 힙
 				}
 				return Math.abs(o1) - Math.abs(o2);
 			}
-		}); // 절대값 작은 순서  + 절대값 같은 경우 오름차순 정렬
+		}); // 절대값 작은 순서 + 절대값 같은 경우 오름차순 정렬
 		
 		for(int i = 0; i < N; i++) {
 			int num = Integer.parseInt(br.readLine());
