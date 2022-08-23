@@ -18,10 +18,10 @@ public class BOJ2290 {
 		n = Integer.parseInt(st.nextToken());
 		row = 2 * s + 3;
 		col = s + 2;
-		arr = new char[row][col + col];
+		arr = new char[row][col + col + 1];
 		
 		makeNum(0, 0, 0);
-		makeNum(0, 4, 0);
+		makeNum(0, 5, 0);
 		print();
 	}
 	
@@ -40,7 +40,7 @@ public class BOJ2290 {
 	
 	static void print() {
 		for(int i = 0; i < row; i++) {
-			for(int j = 0; j < col + col; j++) {
+			for(int j = 0; j < col + col + 1; j++) {
 				System.out.print(arr[i][j]);
 			}
 			System.out.println();

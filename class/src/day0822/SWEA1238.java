@@ -12,8 +12,8 @@ public class SWEA1238 { // Contact
 	static int size;
 	static int start;
 	static ArrayList<Integer>[] list;
-	static ArrayList<Integer>[] last;
 	static boolean[] visit;
+	static int result;
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -24,12 +24,10 @@ public class SWEA1238 { // Contact
 			size = Integer.parseInt(st.nextToken()); // 입력 데이터 길이
 			start = Integer.parseInt(st.nextToken()); // 시작점
 			list = new ArrayList[101];
-			last = new ArrayList[101];
 			visit = new boolean[101];
 			
 			for(int i = 1; i < 101; i++) {
 				list[i] = new ArrayList<>();
-				last[i] = new ArrayList<>();
 			}
 			
 			st = new StringTokenizer(br.readLine());
@@ -39,34 +37,31 @@ public class SWEA1238 { // Contact
 				if(!list[from].contains(to)) list[from].add(to);
 			}
 			
-			int result = 0;
-			for(int val : last[bfs()]) {
-				result = Math.max(result, val);
-			}
-			
+			bfs();
 			System.out.println("#" + t + " " + result);
 		}
 	}
 	
-	static int bfs() {
-		Queue<int[]> que = new ArrayDeque<>();
-		que.add(new int[] {start, 0});
-		int cnt = 0;
+	static void bfs() {
+		Queue<Integer> que = new ArrayDeque<>();
+		que.add(start);
+		visit[start] = true;
 		
 		while(!que.isEmpty()) {
-			int node[] = que.poll();
-			int num = node[0];
-			cnt = node[1];
+			int size = que.size();
+			result = 0;
 			
-			for(int next : list[num]) {
-				if(visit[next] == false) {
-					que.add(new int[] {next, cnt + 1});
-					last[cnt + 1].add(next);
-					visit[next] = true;
+			for(int i = 0; i < size; i++) {
+				int num = que.poll();
+				result = Math.max(result, num);
+				
+				for(int next : list[num]) {
+					if(visit[next] == false) {
+						que.add(next);
+						visit[next] = true;
+					}
 				}
 			}
 		}
-		
-		return cnt;
 	}
 }
