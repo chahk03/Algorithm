@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class SWEA3124 {
+public class SWEA3124 { // 최소 스패닝 트리
 	static int V, E;
 	static ArrayList<Node>[] vList;
 	static boolean[] visit;
