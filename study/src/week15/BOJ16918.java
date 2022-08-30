@@ -26,36 +26,41 @@ public class BOJ16918 { // 봄버맨
 			}
 		}
 		
-		for(int n = 2; n <= N; n++) {
-			int[][] map_copy = new int[R][C];
-
-			// 폭탄 설치
-			for(int i = 0; i < R; i++) {
-				for(int j = 0; j < C; j++) {
-					map[i][j] +=1;
-					map_copy[i][j] = map[i][j];
+		if(N >= 2) {
+			int num = (N - 1) % 4;
+			if(num == 0) num = 4;
+		
+			for(int n = 0; n < num; n++) {
+				int[][] map_copy = new int[R][C];
+	
+				// 폭탄 설치
+				for(int i = 0; i < R; i++) {
+					for(int j = 0; j < C; j++) {
+						map[i][j] +=1;
+						map_copy[i][j] = map[i][j];
+					}
 				}
-			}
-			
-			// 폭탄 폭발
-			for(int i = 0; i < R; i++) {
-				for(int j = 0; j < C; j++) {
-					if(map[i][j] == 3) {
-						map_copy[i][j] = -1;
-						
-						for(int d = 0; d < 4; d++) {
-							int ni = i + di[d];
-							int nj = j + dj[d];
+				
+				// 폭탄 폭발
+				for(int i = 0; i < R; i++) {
+					for(int j = 0; j < C; j++) {
+						if(map[i][j] == 3) {
+							map_copy[i][j] = -1;
 							
-							if(0 <= ni && ni < R && 0 <= nj && nj < C) {
-								map_copy[ni][nj] = -1;
+							for(int d = 0; d < 4; d++) {
+								int ni = i + di[d];
+								int nj = j + dj[d];
+								
+								if(0 <= ni && ni < R && 0 <= nj && nj < C) {
+									map_copy[ni][nj] = -1;
+								}
 							}
 						}
 					}
 				}
+				
+				map = map_copy;
 			}
-			
-			map = map_copy;
 		}
 		
 		for(int i = 0; i < R; i++) {
