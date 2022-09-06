@@ -13,9 +13,10 @@ public class BOJ10162 { // 전자레인지
 		int cnt60 = (T % 300) / 60;
 		int cnt10 = ((T % 300) % 60) / 10;
 		
-		while(true) {
-			if(cnt300 * 300 + cnt60 * 60 + cnt10 * 10 == T) break;
-			
+		if(T % 10 != 0) {
+			System.out.println(-1);
+		} else {
+			System.out.println(cnt300 + " " + cnt60 + " " + cnt10);
 		}
 	}
 }
