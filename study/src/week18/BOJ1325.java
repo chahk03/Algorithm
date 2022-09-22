@@ -5,14 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class BOJ1325 { // 효율적인 해킹
 	static int N, M;
 	static ArrayList<Integer>[] list;
+	static int[] result;
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -34,70 +33,42 @@ public class BOJ1325 { // 효율적인 해킹
 			list[B].add(A);
 		}
 		
-//		int max = 0;
-//		int[] arr = new int[N + 1];
-//		for(int i = 1; i <= N; i++) {
-//			arr[i] = hacking(i);
-//			max = Math.max(max, arr[i]);
-//		}
-//		
-//		ArrayList<Integer> result = new ArrayList<>();
-//		for(int i = 1; i <= N; i++) {
-//			if(arr[i] == max) {
-//				result.add(i);
-//			}
-//		}
-		
-		a = new int[N + 1];
+		result = new int[N + 1];
 		for(int i = 1; i <= N; i++) {
-			go(i);
+			hacking(i);
 		}
 		
-//		Arrays.sort(a);
-//		for(int num : result) {
-//			sb.append(num).append(' ');
-//		}
-//		
-//		System.out.println(sb);
-		System.out.println(Arrays.toString(a));
-	}
-	
-	static int[] a;
-	
-	static int go(int num) {
-		if(list[num].size() == 0) {
-			a[num] = 1;
+		int max = 0;
+		for(int i = 1; i <= N; i++) {
+			max = Math.max(max, result[i]);
 		}
 		
-		if(a[num] == 0) {
-			for(int i = 0; i < list[num].size(); i++) {
-				a[num] += go(list[num].get(i));
+		for(int i = 1; i <= N; i++) {
+			if(result[i] == max) {
+				sb.append(i).append(' ');
 			}
 		}
 		
-		return a[num];
+		System.out.println(sb);
 	}
 	
-//	static int hacking(int num) {
-//		Queue<Integer> q = new ArrayDeque<>();
-//		boolean[] visit = new boolean[N + 1];
-//
-//		q.add(num);
-//		visit[num] = true;
-//		int total = 1;
-//		
-//		while(!q.isEmpty()) {
-//			int cNum = q.poll();
-//			
-//			for(int i = 0; i < list[cNum].size(); i++) {
-//				if(!visit[list[cNum].get(i)]) {
-//					q.add(list[cNum].get(i));
-//					visit[list[cNum].get(i)] = true;
-//					total += 1;
-//				}
-//			}
-//		}
-//		
-//		return total;
-//	}
+	static void hacking(int num) {
+		Queue<Integer> q = new ArrayDeque<>();
+		boolean[] visit = new boolean[N + 1];
+
+		q.add(num);
+		visit[num] = true;
+		
+		while(!q.isEmpty()) {
+			int cNum = q.poll();
+			
+			for(int n : list[cNum]) {
+				if(!visit[n]) {
+					q.add(n);
+					visit[n] = true;
+					result[n] += 1;
+				}
+			}
+		}
+	}
 }
