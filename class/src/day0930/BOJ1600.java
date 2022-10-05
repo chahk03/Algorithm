@@ -46,7 +46,7 @@ public class BOJ1600 { // 말이 되고픈 원숭이
 		int cnt = 0;
 		while(!q.isEmpty()) {
 			int size = q.size();
-			System.out.println(".......");
+			
 			for(int s = 0; s < size; s++) {
 				int[] n = q.poll();
 				System.out.println(n[0] + " " + n[1]);
