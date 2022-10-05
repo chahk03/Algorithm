@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class BOJ1189 {
+public class BOJ1189 { // 컴백홈
 	static int R, C, K;
 	static char[][] map;
 	static boolean[][] visit;
