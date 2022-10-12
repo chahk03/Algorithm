@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
-public class BOJ8982 { // 수족관1
+public class BOJ8982_2 { // 수족관1
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -25,7 +25,11 @@ public class BOJ8982 { // 수족관1
 			C = Math.max(C, col);
 		}
 		
-		int[][] map = new int[R][C];
+//		int[][] map = new int[R][C];
+		ArrayList<Integer>[] list = new ArrayList[C];
+		for(int i = 0; i < C; i++) {
+			list[i] = new ArrayList<>();
+		}
 		
 		for(int i = 0; i < pList.size(); i++) {
 			if(i % 2 == 0) continue;
@@ -38,7 +42,8 @@ public class BOJ8982 { // 수족관1
 			
 			for(int c = col; c < next_col; c++) {
 				for(int j = 0; j < row; j++) {
-					map[j][c] = 1;
+//					map[j][c] = 1;
+					list[c].add(1);
 				}
 			}			
 		}
@@ -67,15 +72,19 @@ public class BOJ8982 { // 수족관1
 		for(int h = 0; h < hList.size(); h++) {
 			for(int i = start; i < hList.get(h).x; i++) {
 				int col = hList.get(h).y;
-				map[i][col] = 0;
+//				map[i][col] = 0;
+				list[col].set(i, 0);
 				
 				while(true) {
 					int mCol = col - 1;
 					
 					if(mCol < 0) break;
-					if(map[i][mCol] == 0) break;
+//					if(map[i][mCol] == 0) break;
+					if(list[mCol].get(i) == 0) break;
 					
-					map[i][mCol] = 0;
+//					map[i][mCol] = 0;
+					list[mCol].set(i, 0);
+					
 					col = mCol;
 				}
 				
@@ -84,9 +93,10 @@ public class BOJ8982 { // 수족관1
 					int pCol = col + 1;
 					
 					if(pCol >= C) break;
-					if(map[i][pCol] == 0) break;
+					if(list[pCol].size() < i + 1) break;
+					if(list[pCol].get(i) == 0) break;
 					
-					map[i][pCol] = 0;
+					list[pCol].set(i, 0);
 					col = pCol;
 				}
 			}
@@ -98,7 +108,8 @@ public class BOJ8982 { // 수족관1
 		int result = 0;
 		for(int i = 0; i < R; i++) {
 			for(int j = 0; j < C; j++) {
-				if(map[i][j] == 1) result++;
+//				if(map[i][j] == 1) result++;
+				if(list[j].get(i) == 1) result++;
 			}
 		}
 		
