@@ -25,12 +25,7 @@ public class BOJ8982_2 { // 수족관1
 			C = Math.max(C, col);
 		}
 		
-//		int[][] map = new int[R][C];
-		ArrayList<Integer>[] list = new ArrayList[C];
-		for(int i = 0; i < C; i++) {
-			list[i] = new ArrayList<>();
-		}
-		
+		int total = 0;
 		for(int i = 0; i < pList.size(); i++) {
 			if(i % 2 == 0) continue;
 			if(i == pList.size() - 1) continue;
@@ -38,23 +33,13 @@ public class BOJ8982_2 { // 수족관1
 			int row = pList.get(i).x;
 			int col = pList.get(i).y;
 			int next_col = pList.get(i + 1).y;
-			// System.out.println(col + " " + next_col + " " + row);
 			
 			for(int c = col; c < next_col; c++) {
 				for(int j = 0; j < row; j++) {
-//					map[j][c] = 1;
-					list[c].add(1);
+					total++;
 				}
 			}			
 		}
-		
-//		System.out.println("----------수조 초기값-----------");
-//		for(int i = 0; i < R; i++) {
-//			for(int j = 0; j < C; j++) {
-//				System.out.print(map[i][j] + " ");
-//			}
-//			System.out.println();
-//		}
 		
 		int K = Integer.parseInt(br.readLine());
 		ArrayList<Point> hList = new ArrayList<>();
@@ -80,6 +65,7 @@ public class BOJ8982_2 { // 수족관1
 					
 					if(mCol < 0) break;
 //					if(map[i][mCol] == 0) break;
+					if(list[mCol].size() <= i) continue;
 					if(list[mCol].get(i) == 0) break;
 					
 //					map[i][mCol] = 0;
@@ -93,7 +79,7 @@ public class BOJ8982_2 { // 수족관1
 					int pCol = col + 1;
 					
 					if(pCol >= C) break;
-					if(list[pCol].size() < i + 1) break;
+					if(list[pCol].size() <= i) continue;
 					if(list[pCol].get(i) == 0) break;
 					
 					list[pCol].set(i, 0);
@@ -109,6 +95,7 @@ public class BOJ8982_2 { // 수족관1
 		for(int i = 0; i < R; i++) {
 			for(int j = 0; j < C; j++) {
 //				if(map[i][j] == 1) result++;
+				if(list[j].size() <= i) continue;
 				if(list[j].get(i) == 1) result++;
 			}
 		}
