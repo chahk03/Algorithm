@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.StringTokenizer;
 
 public class BOJ8982 { // 수족관1
@@ -13,19 +12,18 @@ public class BOJ8982 { // 수족관1
 		
 		int N = Integer.parseInt(br.readLine()); // 수족관 꼭짓점 개수
 		ArrayList<Point> pList = new ArrayList<>();
-		int R = 0, C = 0;
+		int colLen = 0;
 		
 		for(int i = 0; i < N; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			int col = Integer.parseInt(st.nextToken());
 			int row = Integer.parseInt(st.nextToken());
 			pList.add(new Point(row, col));
-			
-			R = Math.max(R, row);
-			C = Math.max(C, col);
+			colLen = Math.max(colLen, col);
 		}
 		
-		int[][] map = new int[R][C];
+		int[] water = new int[colLen];
+		int[] depth = new int[colLen];
 		
 		for(int i = 0; i < pList.size(); i++) {
 			if(i % 2 == 0) continue;
@@ -34,22 +32,12 @@ public class BOJ8982 { // 수족관1
 			int row = pList.get(i).x;
 			int col = pList.get(i).y;
 			int next_col = pList.get(i + 1).y;
-			// System.out.println(col + " " + next_col + " " + row);
 			
 			for(int c = col; c < next_col; c++) {
-				for(int j = 0; j < row; j++) {
-					map[j][c] = 1;
-				}
+				water[c] = row;
+				depth[c] = row;
 			}			
 		}
-		
-//		System.out.println("----------수조 초기값-----------");
-//		for(int i = 0; i < R; i++) {
-//			for(int j = 0; j < C; j++) {
-//				System.out.print(map[i][j] + " ");
-//			}
-//			System.out.println();
-//		}
 		
 		int K = Integer.parseInt(br.readLine());
 		ArrayList<Point> hList = new ArrayList<>();
@@ -61,54 +49,34 @@ public class BOJ8982 { // 수족관1
 			hList.add(new Point(row, col));
 		} // end input
 		
-		Collections.sort(hList, (o1, o2) -> o1.x - o2.x);
-		
-		int start = 0;
 		for(int h = 0; h < hList.size(); h++) {
-			for(int i = start; i < hList.get(h).x; i++) {
-				int col = hList.get(h).y;
-				map[i][col] = 0;
-				
-				while(true) {
-					int mCol = col - 1;
-					
-					if(mCol < 0) break;
-					if(map[i][mCol] == 0) break;
-					
-					map[i][mCol] = 0;
-					col = mCol;
-				}
-				
-				col = hList.get(h).y;
-				while(true) {
-					int pCol = col + 1;
-					
-					if(pCol >= C) break;
-					if(map[i][pCol] == 0) break;
-					
-					map[i][pCol] = 0;
-					col = pCol;
+			int rowNum = hList.get(h).x;
+			int colNum = hList.get(h).y;
+			
+			for(int i = colNum; i >= 0; i--) { // 왼쪽
+				if(depth[i] >= rowNum)
+					water[i] = Math.min(water[i], depth[i] - rowNum);
+				else {
+					water[i] = 0;
+					rowNum = depth[i];
 				}
 			}
 			
-			start = hList.get(h).x - 1;
-//			System.out.println(start);
-		}
-		
-		int result = 0;
-		for(int i = 0; i < R; i++) {
-			for(int j = 0; j < C; j++) {
-				if(map[i][j] == 1) result++;
+			rowNum = hList.get(h).x;
+			for(int i = colNum + 1; i < colLen; i++) { // 오른쪽
+				if(depth[i] >= rowNum)
+					water[i] = Math.min(water[i], depth[i] - rowNum);
+				else {
+					water[i] = 0;
+					rowNum = depth[i];
+				}
 			}
 		}
 		
-//		System.out.println("----------수조 비운 뒤-----------");
-//		for(int i = 0; i < R; i++) {
-//			for(int j = 0; j < C; j++) {
-//				System.out.print(map[i][j] + " ");
-//			}
-//			System.out.println();
-//		}
+		int result = 0;
+		for(int i = 0; i < colLen; i++) {
+			result += water[i];
+		}
 		
 		System.out.println(result);
 	}
