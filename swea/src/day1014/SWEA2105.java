@@ -50,7 +50,7 @@ public class SWEA2105 { // 디저트 카페
 		if(x == startX && y == startY && cnt > 1) {
 			result = Math.max(result, cnt);
 			return;
-		}		
+		}
 		
 		for(int d = 0; d < go[dir].length; d++) {
 			int nx = x + dx[go[dir][d]];
