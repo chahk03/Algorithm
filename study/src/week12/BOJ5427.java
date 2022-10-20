@@ -54,22 +54,6 @@ public class BOJ5427 { // 불
 				fire();
 				move();
 				
-//				for(int i = 0; i < h; i++) {
-//					for(int j = 0; j < w; j++) {
-//						System.out.print(map[i][j]);
-//					}
-//					System.out.println();
-//				}
-//				System.out.println("------------------");
-//				
-//				for(int i = 0; i < h; i++) {
-//					for(int j = 0; j < w; j++) {
-//						System.out.print(time[i][j]);
-//					}
-//					System.out.println();
-//				}
-//				System.out.println("------------------");
-				
 				if(flag) break;
 				if(tQueue.isEmpty()) break;
 			}
