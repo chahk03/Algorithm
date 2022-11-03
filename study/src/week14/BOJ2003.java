@@ -19,26 +19,20 @@ public class BOJ2003 { // 수들의 합2
 			arr[n] = Integer.parseInt(st.nextToken());
 		}
 		
-		int start = 0;
-		int end = 0;
 		int sum = 0;
+		int start = 0;
 		int result = 0;
 		
-		while(true) {
-			if(end < N) {
-				if(sum == M) {
-					sum += arr[end++];
-				} else if(sum < M) {
-					sum += arr[end++];
-				} else if(sum > M) {
-					sum -= arr[start++];
-				}
+		for(int end = 0; end < N; end++) {
+			sum += arr[end]; // 제일 오른쪽 수 더하기
+			
+			while(sum > M) { // sum이 M보다 큰 경우
+				if(start == end) break; // 제일 왼쪽과 제일 오른쪽 칸이 같으면 break
+				sum -= arr[start++]; // 제일 왼쪽 수부터 빼기
 			}
 			
-			if(start == N) break;
-			
-			if(sum == M) {
-				System.out.println(start + " " + end);
+			if(sum == M) { // sum이 M인 경우
+				// System.out.println(start + " " + end);
 				result++;
 			}
 		}
