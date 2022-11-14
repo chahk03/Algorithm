@@ -49,13 +49,13 @@ public class BOJ1956 { // 운동
 		while(!queue.isEmpty()) {
 			Info node = queue.poll();
 			
+			if(node.v == num && node.e != 0) {
+				result = Math.min(result, node.e);
+				return;
+			}
+
 			for(Info next : adjList[node.v]) {
 				if(!visit[node.v][next.v]) {
-					if(next.v == num) {
-						result = Math.min(result, node.e + next.e);
-						break;
-					}
-					
 					visit[node.v][next.v] = true;
 					queue.add(new Info(next.v, node.e + next.e));
 				}
