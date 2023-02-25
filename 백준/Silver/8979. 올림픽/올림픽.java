@@ -33,7 +33,7 @@ public class Main {
         });
 
         int rank = 0, tie = 1;
-        boolean isSame ;
+        boolean isSame;
 
         for (int n = 0; n < N; n++) {
             if (n > 0 && teams[n][1] == teams[n - 1][1] && teams[n][2] == teams[n - 1][2] && teams[n][3] == teams[n - 1][3]) {
