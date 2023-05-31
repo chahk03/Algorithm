@@ -6,18 +6,15 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine()); //표본 모양수열의 길이
-        String origin = br.readLine();
-
-        for (int i = 0; i < N; i++) {
-            origin = origin.replace(" ", "");
-        }
-
-        //순 방향으로 (수열 두번 합치기)
+        String origin = br.readLine().replace(" ", "");
+        
+        //순 방향 (수열 두번 합치기)
         String forward = origin + origin;
 
-        //반대 방향으로 (숫자 변환한 뒤 방향 바꾸기)
+        //반대 방향 (숫자 변환한 뒤 방향 바꾸기)
         String backward = "";
         int[] dir = {0, 3, 4, 1, 2};
+        
         for (int i = 0; i < N; i++) {
             int num = dir[origin.charAt(i) - '0'];
             backward = String.valueOf(num) + backward;
