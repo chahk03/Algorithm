@@ -12,41 +12,47 @@ public class Main {
         int[] map = new int[100001];
         Arrays.fill(map, -1);
 
-        Queue<Integer> q = new ArrayDeque<>();
-        q.add(N);
+        Queue<Integer> queue = new ArrayDeque<>();
+        queue.add(N);
         map[N] = 0;
 
-        while (!q.isEmpty()) {
-            int X = q.poll();
+        while (!queue.isEmpty()) {
+            int X = queue.poll();
             if (X == K) {
                 break;
             }
 
             if (0 <= X - 1 && map[X - 1] == -1) {
                 map[X - 1] = X;
-                q.add(X - 1);
+                queue.add(X - 1);
             }
 
             if (X + 1 <= 100000 && map[X + 1] == -1) {
                 map[X + 1] = X;
-                q.add(X + 1);
+                queue.add(X + 1);
             }
 
             if (X * 2 <= 100000 && map[X * 2] == -1) {
                 map[X * 2] = X;
-                q.add(X * 2);
+                queue.add(X * 2);
             }
         }
 
         int time = 0;
-        StringBuilder sb = new StringBuilder(String.valueOf(K));
+        Stack<Integer> stack = new Stack<>();
+        stack.push(K);
+
         while (K != N) {
             time += 1;
-            sb.insert(0, map[K] + " ");
+            stack.push(map[K]);
             K = map[K];
         }
 
-        sb.insert(0, time + "\n");
+        StringBuilder sb = new StringBuilder(time + "\n");
+        while (!stack.isEmpty()) {
+            sb.append(stack.pop()).append(" ");
+        }
+
         System.out.println(sb);
     }
 }
