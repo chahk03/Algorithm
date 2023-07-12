@@ -1,9 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -14,53 +12,41 @@ public class Main {
         int[] map = new int[100001];
         Arrays.fill(map, -1);
 
-        PriorityQueue<Point> pq = new PriorityQueue<>();
-        pq.add(new Point(N, 0));
+        Queue<Integer> q = new ArrayDeque<>();
+        q.add(N);
         map[N] = 0;
 
-        while (!pq.isEmpty()) {
-            Point p = pq.poll();
-            if (p.pos == K) {
-                System.out.println(p.time);
+        while (!q.isEmpty()) {
+            int X = q.poll();
+            if (X == K) {
                 break;
             }
 
-            if (0 <= p.pos - 1 && map[p.pos - 1] == -1) {
-                map[p.pos - 1] = p.pos;
-                pq.add(new Point(p.pos - 1, p.time + 1));
+            if (0 <= X - 1 && map[X - 1] == -1) {
+                map[X - 1] = X;
+                q.add(X - 1);
             }
 
-            if (p.pos + 1 <= 100000 && map[p.pos + 1] == -1) {
-                map[p.pos + 1] = p.pos;
-                pq.add(new Point(p.pos + 1, p.time + 1));
+            if (X + 1 <= 100000 && map[X + 1] == -1) {
+                map[X + 1] = X;
+                q.add(X + 1);
             }
 
-            if (p.pos * 2 <= 100000 && map[p.pos * 2] == -1) {
-                map[p.pos * 2] = p.pos;
-                pq.add(new Point(p.pos * 2, p.time + 1));
+            if (X * 2 <= 100000 && map[X * 2] == -1) {
+                map[X * 2] = X;
+                q.add(X * 2);
             }
         }
 
+        int time = 0;
         StringBuilder sb = new StringBuilder(String.valueOf(K));
         while (K != N) {
+            time += 1;
             sb.insert(0, map[K] + " ");
             K = map[K];
         }
 
+        sb.insert(0, time + "\n");
         System.out.println(sb);
-    }
-
-    static class Point implements Comparable<Point> {
-        int pos, time;
-
-        public Point(int pos, int time) {
-            this.pos = pos;
-            this.time = time;
-        }
-
-        @Override
-        public int compareTo(Point o) {
-            return this.time - o.time;
-        }
     }
 }
