@@ -28,11 +28,11 @@ public class Main {
 
         set = new HashSet<>();
         sb = new StringBuilder();
-        comb(0, "");
+        perm(0, "");
         System.out.println(sb);
     }
 
-    static void comb(int cnt, String str) {
+    static void perm(int cnt, String str) {
         if (cnt == M) {
             if (!set.contains(str)) {
                 set.add(str);
@@ -44,7 +44,7 @@ public class Main {
         for (int i = 0; i < N; i++) {
             if (!visited[i]) {
                 visited[i] = true;
-                comb(cnt + 1, str + (num[i] + " "));
+                perm(cnt + 1, str + (num[i] + " "));
                 visited[i] = false;
             }
         }
