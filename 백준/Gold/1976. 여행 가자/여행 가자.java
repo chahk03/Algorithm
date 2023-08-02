@@ -1,70 +1,55 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
+    static int[] parent;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine()); //도시의 수
         int M = Integer.parseInt(br.readLine()); //여행 계획에 속한 도시들의 수
 
+        parent = new int[N + 1];
+        for (int i = 1; i <= N; i++) {
+            parent[i] = i;
+        }
+
         StringTokenizer st;
-        ArrayList<Integer>[] list = new ArrayList[N + 1];
         for (int i = 1; i <= N; i++) {
             st = new StringTokenizer(br.readLine());
-            list[i] = new ArrayList<>();
 
             for (int j = 1; j <= N; j++) {
                 int flag = Integer.parseInt(st.nextToken());
-                if (flag == 1) list[i].add(j);
+                if (flag == 1) union(i, j);
             }
         }
 
         st = new StringTokenizer(br.readLine());
-        Queue<Integer> plan = new ArrayDeque<>();
-        for (int i = 0; i < M; i++) {
-            plan.add(Integer.parseInt(st.nextToken()));
+        int root = find(Integer.parseInt(st.nextToken()));
+        for (int i = 0; i < M - 1; i++) {
+            int num = Integer.parseInt(st.nextToken());
+            if (root != find(num)) {
+                System.out.println("NO");
+                return;
+            }
         }
 
-        int start = plan.poll();
-        String result = "YES";
+        System.out.println("YES");
+    }
 
-        while (!plan.isEmpty()) {
-            int end = plan.poll();
-            boolean flag = false;
+    static int find(int x) {
+        if (x == parent[x]) return x;
+        return find(parent[x]);
+    }
 
-            Queue<Integer> queue = new ArrayDeque<>();
-            boolean[] visited = new boolean[N + 1];
-            queue.add(start);
-            visited[start] = true;
+    static void union(int x, int y) {
+        x = find(x);
+        y = find(y);
 
-            while (!queue.isEmpty()) {
-                int city = queue.poll();
-                if (city == end) {
-                    flag = true;
-                    break;
-                }
-
-                for (int c : list[city]) {
-                    if (!visited[c]) {
-                        queue.add(c);
-                        visited[c] = true;
-                    }
-                }
-            }
-
-            if (!flag) {
-                result = "NO";
-                break;
-            }
-
-            start = end;
+        if (x != y) {
+            parent[x] = y;
         }
-
-        System.out.println(result);
     }
 }
