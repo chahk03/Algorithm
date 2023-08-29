@@ -2,7 +2,7 @@ import java.util.*;
 
 class Solution {
     public int[] solution(String today, String[] terms, String[] privacies) {
-        ArrayList<Integer> answer = new ArrayList<>();
+        ArrayList<Integer> result = new ArrayList<>();
         int nowDay = getDay(today);
         
         // 약관 종류별 유효기관 입력
@@ -16,10 +16,14 @@ class Solution {
         for(int i = 0; i < privacies.length; i++) {
             String[] privacy = privacies[i].split(" ");
             int privDay = getDay(privacy[0]) + termArr[privacy[1].charAt(0) - 'A'] * 28;
-            if(privDay <= nowDay) answer.add(i + 1);
+            if(privDay <= nowDay) result.add(i + 1);
         }
         
-        return answer.stream().mapToInt(i -> i).toArray();
+        int idx = 0;
+        int[] answer = new int[result.size()];
+        for(int num : result) answer[idx++] = num;
+        
+        return answer;
     }
     
     private int getDay(String today) {
