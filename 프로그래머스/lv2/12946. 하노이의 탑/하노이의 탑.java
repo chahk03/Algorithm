@@ -1,22 +1,23 @@
 import java.util.*;
 
 class Solution {
+    private int idx = 0;
+    
     public int[][] solution(int n) {
-        List<int[]> list = new ArrayList<>();       
-        hanoi(n, 1, 2, 3, list);
-        
-        int[][] answer = new int[list.size()][2];
-        for(int i = 0; i < answer.length; i++) {
-            answer[i] = list.get(i);
-        }
+        int[][] answer = new int[(int) Math.pow(2, n) - 1][2];
+        hanoi(n, 1, 2, 3, answer);
         
         return answer;
     }
     
-    private void hanoi(int n, int from, int between, int to, List<int[]> list) {
-        if(n == 0) return;
-        hanoi(n - 1, from, to, between, list);
-        list.add(new int[]{from, to});
-        hanoi(n - 1, between, from, to, list);        
+    private void hanoi(int n, int from, int between, int to, int[][] answer) {
+        if(n == 1) {
+            answer[idx++] = new int[]{from, to};
+            return;
+        }
+        
+        hanoi(n - 1, from, to, between, answer);
+        answer[idx++] = new int[]{from, to};
+        hanoi(n - 1, between, from, to, answer);
     }
 }
