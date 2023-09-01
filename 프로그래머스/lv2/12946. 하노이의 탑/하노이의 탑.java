@@ -2,48 +2,21 @@ import java.util.*;
 
 class Solution {
     public int[][] solution(int n) {
-        List<int[]>[] lists = new ArrayList[16];        
-        for(int i = 1; i <= 15; i++) {
-            lists[i] = new ArrayList<>();
-        }
+        List<int[]> list = new ArrayList<>();       
+        hanoi(n, 1, 2, 3, list);
         
-        lists[1].add(new int[]{1, 3});
-        
-        for(int i = 2; i <= n; i++) {
-            for(int[] list : lists[i - 1]) {
-                int[] tmp = new int[2];
-                tmp[0] = list[0];
-                tmp[1] = list[1];
-                
-                if(list[0] == 2) tmp[0] = 3;
-                else if(list[0] == 3) tmp[0] = 2;
-                if(list[1] == 2) tmp[1] = 3;
-                else if(list[1] == 3) tmp[1] = 2;
-                
-                lists[i].add(tmp);
-            }
-            
-            lists[i].add(new int[]{1, 3});
-            
-            for(int[] list : lists[i - 1]) {
-                int[] tmp = new int[2];
-                tmp[0] = list[0];
-                tmp[1] = list[1];
-                
-                if(list[0] == 1) tmp[0] = 2;
-                else if(list[0] == 2) tmp[0] = 1;
-                if(list[1] == 1) tmp[1] = 2;
-                else if(list[1] == 2) tmp[1] = 1;
-                
-                lists[i].add(tmp);
-            }
-        }
-        
-        int[][] answer = new int[lists[n].size()][2];
+        int[][] answer = new int[list.size()][2];
         for(int i = 0; i < answer.length; i++) {
-            answer[i] = lists[n].get(i);
+            answer[i] = list.get(i);
         }
         
         return answer;
+    }
+    
+    private void hanoi(int n, int from, int between, int to, List<int[]> list) {
+        if(n == 0) return;
+        hanoi(n - 1, from, to, between, list);
+        list.add(new int[]{from, to});
+        hanoi(n - 1, between, from, to, list);        
     }
 }
