@@ -37,10 +37,11 @@ class Solution {
         
         while(!pq.isEmpty()) {
             Point cur = pq.poll();
-            if(visited[cur.num]) continue;            
+            
+            if(visited[cur.num]) continue;
             visited[cur.num] = true;
             
-            for(Point next : list[cur.num]) {                
+            for(Point next : list[cur.num]) {
                 if(map[i][next.num] > map[i][cur.num] + next.cost) {
                     map[i][next.num] = map[i][cur.num] + next.cost;
                     pq.add(new Point(next.num, map[i][next.num]));
