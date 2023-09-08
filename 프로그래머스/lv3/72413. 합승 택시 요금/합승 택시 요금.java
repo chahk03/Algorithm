@@ -17,13 +17,14 @@ class Solution {
         
         map = new int[n + 1][n + 1];
         for(int i = 1; i <= n; i++) {
+            if(i != s && i != a && i != b) continue;
             Arrays.fill(map[i], Integer.MAX_VALUE);
             calcCost(n, i);
         }
         
         int answer = Integer.MAX_VALUE;
         for(int i = 1; i <= n; i++) {
-            answer = Math.min(answer, map[s][i] + map[i][a] + map[i][b]);
+            answer = Math.min(answer, map[s][i] + map[a][i] + map[b][i]);
         }
         
         return answer;
