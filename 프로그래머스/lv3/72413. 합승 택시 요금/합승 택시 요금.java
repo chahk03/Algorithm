@@ -1,66 +1,30 @@
 import java.util.*;
 
 class Solution {
-    private List<Point>[] list;
-    private int[][] map;
-    
     public int solution(int n, int s, int a, int b, int[][] fares) {
-        list = new ArrayList[n + 1];
+        int[][] cost = new int[n + 1][n + 1];
         for(int i = 1; i <= n; i++) {
-            list[i] = new ArrayList<>();
+            Arrays.fill(cost[i], 20000001);
+            cost[i][i] = 0;
         }
         
         for(int[] fare : fares) {
-            list[fare[0]].add(new Point(fare[1], fare[2]));
-            list[fare[1]].add(new Point(fare[0], fare[2]));
+            cost[fare[0]][fare[1]] = cost[fare[1]][fare[0]] = fare[2];
         }
         
-        map = new int[n + 1][n + 1];
-        for(int i = 1; i <= n; i++) {
-            if(i != s && i != a && i != b) continue;
-            Arrays.fill(map[i], Integer.MAX_VALUE);
-            calcCost(n, i);
+        for(int k = 1; k <= n; k++) {
+            for(int i = 1; i <= n; i++) {
+                for(int j = 1; j <= n; j++) {
+                    cost[i][j] = Math.min(cost[i][j], cost[i][k] + cost[k][j]);
+                }
+            }
         }
         
         int answer = Integer.MAX_VALUE;
         for(int i = 1; i <= n; i++) {
-            answer = Math.min(answer, map[s][i] + map[a][i] + map[b][i]);
+            answer = Math.min(answer, cost[s][i] + cost[i][a] + cost[i][b]);
         }
         
         return answer;
-    }
-    
-    private void calcCost(int n, int i) {
-        PriorityQueue<Point> pq = new PriorityQueue<>();
-        boolean[] visited = new boolean[n + 1];
-        pq.add(new Point(i, 0));
-        map[i][i] = 0;
-        
-        while(!pq.isEmpty()) {
-            Point cur = pq.poll();
-            
-            if(visited[cur.num]) continue;
-            visited[cur.num] = true;
-            
-            for(Point next : list[cur.num]) {
-                if(map[i][next.num] > map[i][cur.num] + next.cost) {
-                    map[i][next.num] = map[i][cur.num] + next.cost;
-                    pq.add(new Point(next.num, map[i][next.num]));
-                }
-            }
-        }
-    }
-    
-    class Point implements Comparable<Point> {
-        int num, cost;
-        
-        Point(int num, int cost) {
-            this.num = num;
-            this.cost = cost;
-        }
-        
-        public int compareTo(Point p) {
-            return this.cost - p.cost;
-        }
     }
 }
